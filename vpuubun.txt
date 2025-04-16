@@ -1,0 +1,121 @@
+✅ STEP 1: Create a VPC
+Go to VPC Dashboard
+
+Click “Create VPC”
+
+Choose VPC only (manual setup)
+
+Name: MyUbuntuVPC
+
+IPv4 CIDR block: 10.0.0.0/16
+
+Click Create VPC
+
+✅ STEP 2: Create a Public Subnet
+Go to Subnets → Create subnet
+
+Name: PublicSubnet
+
+VPC: MyUbuntuVPC
+
+Availability Zone: Choose any (e.g., us-east-1a)
+
+CIDR block: 10.0.1.0/24
+
+Click Create subnet
+
+✅ STEP 3: Create an Internet Gateway
+Go to Internet Gateways
+
+Click Create Internet Gateway
+
+Name: MyIGW
+
+Click Create, then Attach to VPC
+
+Choose MyUbuntuVPC and attach
+
+✅ STEP 4: Create and Modify Route Table
+Go to Route Tables
+
+Click Create Route Table
+
+Name: PublicRT
+
+VPC: MyUbuntuVPC
+
+Click Create
+
+Now add a route:
+
+Select the PublicRT, go to Routes tab → Edit routes
+
+Add:
+
+Destination: 0.0.0.0/0
+
+Target: MyIGW
+
+Save changes
+
+Associate the subnet:
+
+Go to Subnet associations tab → Edit subnet associations
+
+Select PublicSubnet and save
+
+✅ STEP 5: Create a Security Group
+Go to EC2 → Security Groups
+
+Click Create Security Group
+
+Name: WebAccessSG
+
+VPC: MyUbuntuVPC
+
+Inbound rules:
+
+SSH → Port 22 → Anywhere (or your IP)
+
+HTTP → Port 80 → Anywhere
+
+Click Create Security Group
+
+✅ STEP 6: Launch Ubuntu EC2 in the VPC
+Go to EC2 → Launch Instance
+
+Name: UbuntuWeb
+
+Choose Ubuntu Server 22.04 LTS
+
+Instance type: t2.micro (free tier)
+
+Key pair: Create or use existing
+
+Network settings:
+
+VPC: MyUbuntuVPC
+
+Subnet: PublicSubnet
+
+Auto-assign public IP: Enabled
+
+Security Group: WebAccessSG
+
+Scroll to Advanced Details → User Data, paste this:
+
+
+#!/bin/bash
+sudo -i
+apt update -y
+apt install apache2 -y
+cd /var/www/html
+echo "MyGoogle" > index.html
+systemctl start apache2
+systemctl enable apache2
+Click Launch Instance
+
+✅ STEP 7: Access Your Web Server
+Go to Instances → Select your instance
+
+Copy the Public IPv4 address

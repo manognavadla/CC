@@ -6,3 +6,15 @@ cd /var/www/html
 echo "MyGoogle" > index.html
 service httpd start
 chkconfig httpd on 
+
+
+
+ubuntu
+#!/bin/bash
+sudo -i
+apt update -y
+apt install apache2 -y
+cd /var/www/html
+echo "MyGoogle" > index.html
+systemctl start apache2
+systemctl enable apache2

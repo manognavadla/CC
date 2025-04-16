@@ -1,0 +1,57 @@
+S3 Versioning, Cross-Region Replication, and Static Web Hosting Steps
+Based on the document, here are the exact steps for working with S3 features:
+S3 Versioning
+
+Navigate to the AWS S3 dashboard
+Create a bucket
+Enable bucket versioning
+Upload the same object multiple times
+Go to the object and click on "Show versions"
+Delete the object after turning off "Show versions"
+Click on "Show versions" again to see the delete marker
+Delete the object with type "Delete marker" to restore the previous version
+
+Cross-Region Replication
+
+Create 2 buckets in different locations
+Verify versioning is enabled in both buckets under Properties tab
+Select source bucket
+Go to Management tab
+Under Replication rules, click "Create replication rule"
+Configure rule:
+
+Add a rule name
+Set status to "Enabled"
+Set rule scope to "Apply to all objects in the bucket"
+
+
+Choose the destination bucket
+For IAM role, select "LabRole"
+Save the rule
+Choose to replicate existing objects
+In "Create Batch Operations Job":
+
+Configure to not generate a completion report
+Select IAM role "LabRole"
+
+
+Upload an object to the source bucket
+Verify the object appears in the destination bucket
+
+Static Web Hosting
+
+Create a bucket
+Enable public access for this bucket
+Upload website file(s)
+Go to Properties tab of the bucket
+Scroll to Static website hosting and select "Enable"
+Choose the index document (restaurant.html)
+Go to Permissions tab
+Click on Bucket Policy and add a policy to allow public read access
+Return to Properties tab to find the website endpoint URL
+Access the URL to verify website accessibility
+Upload an error.html file to the bucket
+Update the static webhosting settings to include the error document
+Test access to a non-existent page to verify error page display
+Delete restaurant.html from the bucket
+Test the website to confirm error.html is displayed

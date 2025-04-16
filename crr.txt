@@ -1,0 +1,76 @@
+✅ What is CRR (Cross-Region Replication)?
+CRR automatically replicates objects from one S3 bucket (source) in one region to another bucket (destination) in a different region.
+
+🧠 Use Case: Disaster recovery, lower latency, compliance, etc.
+
+🛠️ STEP-BY-STEP: Set Up Cross-Region Replication
+📍 Step 1: Create the Source Bucket
+Go to S3 → Create bucket
+
+Bucket name: source-bucket-crr-<your-unique-id>
+
+Region: e.g., US East (N. Virginia)
+
+Uncheck Block all public access (only if needed)
+
+Enable Versioning
+
+Click Create bucket
+
+📍 Step 2: Create the Destination Bucket
+Create another bucket:
+
+Name: destination-bucket-crr-<your-unique-id>
+
+Choose a different region, e.g., Asia Pacific (Mumbai)
+
+Enable Versioning
+
+Click Create bucket
+
+📍 Step 3: Create an IAM Role for Replication
+Go to IAM → Roles → Create role
+
+Choose S3 as the service
+
+Use S3 -> S3 replication use case
+
+Attach the default replication policy
+
+Name the role: s3-crr-role
+
+Click Create Role
+
+📍 Step 4: Enable Replication on the Source Bucket
+Go to Source bucket → Management tab
+
+Click Create replication rule
+
+Name: replicate-to-destination
+
+Status: Enabled
+
+Choose entire bucket
+
+Destination:
+
+Bucket: Choose the destination bucket from the list
+
+Change the region to match the destination bucket
+
+IAM Role: Choose s3-crr-role
+
+Additional options:
+
+Replicate existing objects (optional)
+
+Choose whether to replicate delete markers (optional)
+
+Click Save
+
+✅ Test CRR
+Upload a file to the source bucket
+
+Wait a few moments
+
+Check the destination bucket in the other region — the object will appear there automatically
