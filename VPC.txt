@@ -1,0 +1,7 @@
+scp -i "vp.pem" vp.pem ec2-user@44.208.23.8:/home/ec2-user/
+
+ssh -i "vp.pem" ec2-user@44.208.23.8
+
+chmod 400 vp.pem
+
+ssh -i vp.pem ec2-user@10.0.2.48
