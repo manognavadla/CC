@@ -77,6 +77,11 @@ ssh -i "your-key.pem" ubuntu@<public-ec2-public-ip>
 
 ### ✅ Private Server (via Public):
 1. SSH into Public EC2 first
+```bash
+eval "$(ssh-agent -s)"
+ssh-add my-key.pem
+ssh -A -i my-key.pem ubuntu@<PUBLIC_EC2_PUBLIC_IP>
+ ```
 2. Then from public EC2, connect to private EC2:
 
 ```bash
